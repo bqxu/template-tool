@@ -61,5 +61,14 @@ export const Fetch_Npm_Command = async (pkg, options, command) => {
     recursive: true,
   })
 
+  try {
+    await execa('npm', ['install'], {
+      cwd: local_dir,
+      stdio: ['ignore', 'inherit', 'inherit'],
+    })
+  } catch (e) {
+    throw new RunCommanderError(`npm install 失败`)
+  }
+
   success(`拉取模版执行成功： ${name}:${local_dir}`)
 }

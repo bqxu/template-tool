@@ -10,13 +10,13 @@ export const Fetch_Git_Command = async (url, options, command) => {
   let clone_args = []
   clone_args.push('clone')
   const { force } = options
-  // if (options.branch) {
-  //   clone_args.push('-b')
-  //   clone_args.push(options.branch)
-  // } else if (options.tag) {
-  //   clone_args.push('-b')
-  //   clone_args.push(options.tag)
-  // }
+  if (options.branch) {
+    clone_args.push('-b')
+    clone_args.push(options.branch)
+  } else if (options.tag) {
+    clone_args.push('-b')
+    clone_args.push(options.tag)
+  }
   clone_args.push(remote_url)
 
   let local_template = path.join(global_dir(), 'templates')
@@ -58,6 +58,15 @@ export const Fetch_Git_Command = async (url, options, command) => {
   } catch (e) {
     console.log(e)
     throw new RunCommanderError(`clone git 失败`)
+  }
+
+  try {
+    await execa('npm', ['install'], {
+      cwd: local_dir,
+      stdio: ['ignore', 'inherit', 'inherit'],
+    })
+  } catch (e) {
+    throw new RunCommanderError(`npm install 失败`)
   }
   success(`拉取模版执行成功： ${name}:${local_dir}`)
 }

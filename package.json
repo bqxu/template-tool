@@ -1,17 +1,20 @@
 {
   "name": "template-tool",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "code tempalte generation tool & generate code from tempalte",
   "bin": {
     "ttool": "./bin/index.js",
     "template-tool": "./bin/index.js"
   },
+  "main": "src/index.js",
+  "module": "src/index.js",
   "type": "module",
   "dependencies": {
     "chalk": "^5.0.0",
     "commander": "^8.3.0",
     "execa": "^6.0.0",
     "minimist": "^1.2.5",
+    "prompts": "^2.4.2",
     "pug": "^3.0.2"
   },
   "files": [

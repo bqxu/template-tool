@@ -6,14 +6,22 @@ import { find_local_templates, find_global_templates, find_buildIn_templates } f
 export const run_command = async (templateName, options, command) => {
   let dir = options.dir
   dir = path.join(cwd(), dir)
-  let tpl = await find_local_templates(templateName, dir)
-  if (!tpl) {
-    tpl = await find_global_templates(templateName)
-  }
-  if (!tpl) {
-    tpl = await find_buildIn_templates(templateName)
-  }
 
+  let tpl = null
+  if (options.templatePath) {
+    tpl = {
+      name: templateName,
+      path: path.join(cwd(), options.templatePath),
+    }
+  } else {
+    await find_local_templates(templateName, dir)
+    if (!tpl) {
+      tpl = await find_global_templates(templateName)
+    }
+    if (!tpl) {
+      tpl = await find_buildIn_templates(templateName)
+    }
+  }
   if (!tpl) {
     throw new RunCommanderError(command.name(), `未找到模版: ${templateName}`)
   }
@@ -31,5 +39,6 @@ export const exec_template = async (template, dir, options) => {
   if (typeof runner !== 'function') {
     throw new RunCommanderError(`未找到runner： ${template.path}`)
   }
-  runner(dir, options)
+
+  await runner(dir, options)
 }

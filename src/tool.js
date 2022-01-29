@@ -112,6 +112,7 @@ export const exec_file_2 = async (filepath) => {
 
 export const exec_file = async (filepath) => {
   return new Promise((resolve, reject) => {
+    console.log(filepath)
     import(filepath).then((module) => {
       resolve(module.default)
     })

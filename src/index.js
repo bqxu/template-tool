@@ -19,6 +19,7 @@ export * from './tool.js'
 export * from './error.js'
 
 export { default as chalk } from 'chalk'
+export { default as prompts } from 'prompts'
 
 export const run = async () => {
   const program = new Command()
@@ -38,6 +39,7 @@ export const run = async () => {
     .addCommand(RunCommand())
     .addCommand(TemplateCommand())
     .description('代码自动生成工具')
+    .showHelpAfterError()
 
   await program.parseAsync(process.argv)
 }

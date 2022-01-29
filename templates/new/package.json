@@ -9,5 +9,8 @@
     "tpl",
     "package.json",
     "runner.js"
-  ]
+  ],
+  "dependencies": {
+    "template-tool": "latest"
+  }
 }

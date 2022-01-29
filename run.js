@@ -3,12 +3,13 @@ import { run } from './src/index.js'
 run()
   .then(() => {})
   .catch((reason) => {
+    // console.log(`run.js`, reason)
     if (reason.message == '(outputHelp)') {
       return
     }
     console.log(chalk.red(`出错了!`))
     if (reason.command) {
-      console.log(chalk.red(`command ${chalk.cyan(reason.command)} has failed.`))
+      console.log(chalk.red(`运行失败： ${chalk.cyan(reason.command)} `))
     } else {
       console.log(chalk.red(reason))
     }
