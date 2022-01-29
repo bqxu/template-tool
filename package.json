@@ -1,6 +1,6 @@
 {
   "name": "template-tool",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "code tempalte generation tool & generate code from tempalte",
   "bin": {
     "ttool": "./bin/index.js",
