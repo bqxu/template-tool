@@ -1,7 +1,10 @@
 {
-  "name": "gen-code",
+  "name": "code-tempalte",
   "version": "1.0.0",
-  "description": "Code generation tool",
+  "description": "code tempalte generation tool & generate code from tempalte",
+  "bin": {
+    "g-code": "./bin/index.js"
+  },
   "type": "module",
   "dependencies": {
     "chalk": "^5.0.0",
