@@ -32,5 +32,13 @@
     "email": "bqxu.me@gmail.com",
     "url": "https://github.com/bqxu"
   },
+  "keywords": [
+    "code-template",
+    "template-tool",
+    "gen-code",
+    "git",
+    "npm",
+    "ttool"
+  ],
   "license": "MIT"
 }
