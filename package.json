@@ -1,9 +1,10 @@
 {
-  "name": "code-tempalte",
-  "version": "1.0.0",
+  "name": "template-tool",
+  "version": "0.2.0",
   "description": "code tempalte generation tool & generate code from tempalte",
   "bin": {
-    "g-code": "./bin/index.js"
+    "ttool": "./bin/index.js",
+    "template-tool": "./bin/index.js"
   },
   "type": "module",
   "dependencies": {
@@ -16,10 +17,12 @@
   "files": [
     "src",
     "templates",
+    ".prettierrc",
+    ".gitignore",
     "bin",
-    "readme.md",
+    "readme.markdown",
     "package.json",
-    "runner.js"
+    "run.js"
   ],
   "author": {
     "name": "bqxu",
