@@ -1,0 +1,27 @@
+{
+  "name": "gen-code",
+  "version": "1.0.0",
+  "description": "Code generation tool",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "commander": "^8.3.0",
+    "execa": "^6.0.0",
+    "minimist": "^1.2.5",
+    "pug": "^3.0.2"
+  },
+  "files": [
+    "src",
+    "templates",
+    "bin",
+    "readme.md",
+    "package.json",
+    "runner.js"
+  ],
+  "author": {
+    "name": "bqxu",
+    "email": "bqxu.me@gmail.com",
+    "url": "https://github.com/bqxu"
+  },
+  "license": "MIT"
+}

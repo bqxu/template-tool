@@ -1,0 +1,46 @@
+| //server template
+| // import values,callback,ctx,Rds,Redis,tools
+|
+|
+| let user_id = ctx.getUserId();
+|
+| let {
+|   pn,
+|   ps,
+| } = ctx.request.body;
+|
+| pn = parseInt(pn || 1, 10);
+| ps = parseInt(ps || 10, 10);
+| let offset = (pn - 1) * ps;
+| let limit = ps;
+|
+|
+| const #{method_page} = async () => {
+|   let where = {
+|      delete_flag: 0,
+|   }
+|
+|   let columns = [
+|        'name'
+|   ]
+|
+|
+|   let total = await ctx.app.mysql.count('#{table_name}', where);
+|
+|   let rows = await ctx.app.mysql.select('#{table_name}', {
+|     where,
+|     columns,
+|     offset,
+|     limit,
+|   })
+|
+|   return {
+|     list: rows,
+|     pn,
+|     ps,
+|     total,
+|   };
+| }
+|
+| callback = Promise.resolve(#{method_page}())
+|

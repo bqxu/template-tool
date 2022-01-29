@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "template": "pug",
+  "commmand": {
+    "add": [
+      "[add]"
+    ],
+    "info": [
+      "[info]"
+    ],
+    "page": [
+      "[page]"
+    ],
+    "update": [
+      "[update]"
+    ]
+  },
+  "private": true,
+  "type": "module",
+  "files": [
+    "tpl",
+    "package.json",
+    "runner.js"
+  ]
+}

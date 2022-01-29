@@ -1,0 +1,13 @@
+{
+  "name": "next",
+  "version": "1.0.0",
+  "template": "pug",
+  "commmand": {},
+  "private": true,
+  "type": "module",
+  "files": [
+    "tpl",
+    "package.json",
+    "runner.js"
+  ]
+}

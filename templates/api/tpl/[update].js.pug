@@ -1,0 +1,31 @@
+| //server template
+| // import values,callback,ctx,Rds,Redis,tools
+|
+|
+| let user_id = ctx.getUserId();
+|
+| let {
+|   id,
+|   name
+| } = ctx.request.body;
+|
+|
+| const #{method_update} = async () => {
+|
+|   if (!id) {
+|     return { state: 'warn', message: '无效的ID' }
+|   }
+|
+|   let row = {
+|       name,
+|       update_time: ctx.service.tool.nowTime(),
+|   }
+|
+|   let where = {id} ;
+|
+|   await ctx.app.mysql.update('#{table_name}', row , {where})
+|
+|   return true;
+| }
+|
+| callback = Promise.resolve(#{method_update}())

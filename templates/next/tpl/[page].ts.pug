@@ -1,0 +1,206 @@
+| import {useEffect, useState} from "react";
+| import {useRouter} from "next/router";
+| import {Button, Form, Input, message, Modal, Space, Statistic, Table} from "antd";
+|
+| import {ReloadOutlined} from "@ant-design/icons";
+|
+| import PageDashboardLayout from 'components/page-dashboard-layout'
+| import network from "lib/network";
+| import {iAppServer} from "lib/config";
+|
+| import styles from './#{page}.module.scss';
+|
+|
+| export default function #{Page}() {
+|
+|     const router = useRouter();
+|     let [#{page}, set#{Page}] = useState({list: [], pn: 1, ps: 10, total: 0});
+|
+|     let [visible#{Page}, setVisible#{Page}] = useState(false)
+|
+|     let [edit, setEdit] = useState(false);
+|
+|     let [form] = Form.useForm();
+|
+|     const columns = [
+|         {
+|             title: '名称',
+|             dataIndex: 'name',
+|             key: 'name',
+|         },
+|         {
+|             // width: '300px',
+|             title: '操作',
+|             render(text: any, row: any, val: any) {
+|                 return (
+|                     <div>
+|                         <Button type='link'
+|                                 size={'small'} onClick={() => {
+|                             toEdit#{Page}(row.#{page}_id)
+|                         }}>编辑</Button>
+|                     </div>
+|                 )
+|             }
+|         },
+|     ]
+|
+|     const query#{Page} = async (pn = 1, ps = 10) => {
+|         let res = await network.postJSON(iAppServer + '/script/game.#{page}_list', {
+|             pn, ps
+|         })
+|         network.alert_error_message(res);
+|
+|         console.log(res);
+|
+|         if (res.state == 'ok') {
+|             set#{Page}(res.data);
+|         }
+|     }
+|
+|     const toNew#{Page} = async () => {
+|         form.resetFields();
+|         setEdit(false);
+|         setVisible#{Page}(true)
+|     }
+|
+|     const toEdit#{Page} = async (#{page}_id: any) => {
+|         setEdit(true);
+|         let res = await network.postJSON(iAppServer + '/script/game.#{page}_info', {
+|             #{page}_id
+|         })
+|         network.alert_error_message(res);
+|         if (res.state == 'ok') {
+|             form.resetFields();
+|             form.setFieldsValue(res.data);
+|             setEdit(true);
+|             setVisible#{Page}(true)
+|         }
+|     }
+|
+|     const toReload#{Page} = async () => {
+|         await query#{Page}()
+|     }
+|
+|     const toSave#{Page} = async () => {
+|         let vals = null;
+|         try {
+|             vals = await form.validateFields();
+|         } catch (e) {
+|             return;
+|         }
+|
+|         let row = {
+|             name: vals.name,
+|         }
+|
+|         if (edit) {
+|             let res = await network.postJSON(iAppServer + '/script/game.#{page}_update', row);
+|
+|             network.alert_error_message(res);
+|
+|             if (res.state === 'ok') {
+|                 message.success('更新成功');
+|                 setVisible#{Page}(false);
+|                 form.resetFields()
+|                 setEdit(false)
+|                 await query#{Page}()
+|             }
+|
+|         } else {
+|             let res = await network.postJSON(iAppServer + '/script/game.#{page}_add', row);
+|
+|             network.alert_error_message(res);
+|
+|             if (res.state === 'ok') {
+|                 message.success('添加成功');
+|                 setVisible#{Page}(false);
+|                 form.resetFields()
+|                 setEdit(false)
+|                 await query#{Page}()
+|             }
+|         }
+|     }
+|
+|     const toCancel#{Page} = async () => {
+|         setVisible#{Page}(false)
+|     }
+|
+|     const update#{Page} = async () => {
+|
+|     }
+|
+|     useEffect(() => {
+|         query#{Page}().then(() => {
+|
+|         })
+|     }, [])
+|
+|     //
+|     return (<div className={styles.page}>
+|         <div className={styles.tool}>
+|             <Button type='primary' onClick={toNew#{Page}}>
+|                 新增
+|             </Button>
+|
+|             <Button type='text' onClick={toReload#{Page}}>
+|                 <ReloadOutlined/>
+|             </Button>
+|         </div>
+|         <div className={styles.content}>
+|             <Table
+|                 rowKey={'#{page}_id'}
+|                 dataSource={#{page}.list}
+|                 columns={columns}
+|                 pagination={{
+|                     total: #{page}.total,
+|                     current: #{page}.pn,
+|                     pageSize: #{page}.ps
+|                 }}
+|             />
+|         </div>
+|
+|         <Modal
+|             width={600}
+|             title={edit ? '编辑#{Page}' : '新增#{Page}'}
+|             mask
+|             visible={visible#{Page}}
+|             onOk={toSave#{Page}}
+|             onCancel={toCancel#{Page}}
+|         >
+|             <div className={styles.#{page}}>
+|                 <Form
+|                     form={form}
+|                     layout={'horizontal'}
+|                     labelCol={{span:6}}
+|                     labelAlign={"left"}
+|                     onValuesChange={update#{Page}}
+|                 >
+|                     <Form.Item label={'#{page}Id'} name={'#{page}_id'} hidden>
+|                         <Input/>
+|                     </Form.Item>
+|                     <Form.Item label={'名称'} name={'name'} rules={[{required: true}]}>
+|                         <Input/>
+|                     </Form.Item>
+|                 </Form>
+|             </div>
+|         </Modal>
+|     </div>)
+| }
+|
+|
+| const getInitialProps = async (ctx: any) => {
+|
+|     return {
+|         props: {
+|             headMate: {
+|                 title: '#{Page}',
+|             },
+|             headerMate: {},
+|             footerMate: {}
+|         }
+|     }
+| }
+|
+| export const getServerSideProps = getInitialProps
+|
+| #{Page}.getLayout = PageDashboardLayout

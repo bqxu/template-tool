@@ -1,0 +1,25 @@
+| //server template
+| // import values,callback,ctx,Rds,Redis,tools
+|
+|
+| let user_id = ctx.getUserId();
+|
+| let {
+|   name,
+| } = ctx.request.body;
+|
+|
+| const #{method_add} = async () => {
+|
+|   let row = {
+|     id: ctx.service.tool.uuid(),
+|     name,
+|     create_time: ctx.service.tool.nowTime(),
+|   };
+|
+|   await ctx.app.mysql.insert('#{table_name}', row)
+|
+|   return true;
+| }
+|
+| callback = Promise.resolve(#{method_add}())

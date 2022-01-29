@@ -1,0 +1,12 @@
+{
+  "name": "lite",
+  "template": "pug",
+  "commmand": {},
+  "private": true,
+  "type": "module",
+  "files": [
+    "tpl",
+    "package.json",
+    "runner.js"
+  ]
+}

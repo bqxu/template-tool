@@ -1,0 +1,25 @@
+{
+  "name": "gin",
+  "template": "pug",
+  "commmand": {
+    "model": [
+      "model/[model]"
+    ],
+    "router": [
+      "router/[model]"
+    ],
+    "service": [
+      "service/[model]"
+    ],
+    "controller": [
+      "controller/[model]"
+    ]
+  },
+  "private": true,
+  "type": "module",
+  "files": [
+    "tpl",
+    "package.json",
+    "runner.js"
+  ]
+}

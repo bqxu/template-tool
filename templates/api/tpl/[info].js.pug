@@ -1,0 +1,29 @@
+| //server template
+| // import values,callback,ctx,Rds,Redis,tools
+|
+|
+| let user_id = ctx.getUserId();
+|
+| let {
+|   id,
+| } = ctx.request.body;
+|
+|
+| const #{method_info} = async () => {
+|
+|   if (!id) {
+|     return { state: 'warn', message: '无效的ID' }
+|   }
+|
+|   let columns = [
+|       'id',
+|   ]
+|
+|   let where = {id} ;
+|
+|   let row =  await ctx.app.mysql.get('#{table_name}', where, {columns})
+|
+|   return row;
+| }
+|
+| callback = Promise.resolve(#{method_info}())

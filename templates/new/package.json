@@ -1,0 +1,13 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "template": "none",
+  "commmand": {},
+  "private": true,
+  "type": "module",
+  "files": [
+    "tpl",
+    "package.json",
+    "runner.js"
+  ]
+}
