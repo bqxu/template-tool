@@ -52,6 +52,7 @@ export const template_new_command = async (templateName, options, command) => {
 export const exec_template_new = async (tpl, workspace) => {
   mkdirSync(workspace, { recursive: true })
   fs.cpSync(tpl.path, workspace, { recursive: true })
+  mkdirSync(path.join(workspace, 'tpl'), { recursive: true })
 
   try {
     await execa('npm', ['install'], {
