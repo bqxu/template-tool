@@ -14,6 +14,7 @@ import {
   chalk,
   log,
   prompts,
+  info,
 } from '../../src/index.js'
 
 const require = createRequire(import.meta.url)
@@ -60,7 +61,9 @@ const out_help = async () => {
   log(``)
   log(`Options:`)
   log(`  -d, --dir <dir>    目录 (default: "./")`)
-  log(`  --model <model>    model名称`)
+  log(`  --table <table>    表名称`)
+  log(`  --model <model>    model名称(可选参数，默认为：<table>)`)
+  log(`  --db <db>          数据库名称(可选参数)`)
   log(`  --sub <sub>        子类型<model/router/service/controller>`)
   log(``)
 }
@@ -71,17 +74,18 @@ const Runner = async (workspace, options) => {
     return
   }
 
-  if (!options.model) {
+  if (!options.table) {
     out_help()
-    throw new RunCommanderError('请设置参数 --model')
+    throw new RunCommanderError('请设置参数 --table')
   }
 
-  const db = options.db || ''
-  let table_name = options.table || options.model
-  let db_table_name = table_name
-  if (db) {
-    db_table_name = `${db}.${table_name}`
+  let table_name = options.table
+
+  if (options.db) {
+    table_name = `${options.db}.${options.table}`
   }
+
+  let model_name = options.model || options.table
 
   let pattern = ['*']
 
@@ -120,11 +124,10 @@ const Runner = async (workspace, options) => {
 
       const data = {
         ...options,
-        db,
-        table_name: db_table_name,
-        Model: CamelCase(options.model),
-        Router: CamelCase(options.model),
-        file_model: underScoreCase(options.model),
+        table_name,
+        Model: CamelCase(model_name),
+        Router: CamelCase(model_name + '-router'),
+        file_model: underScoreCase(model_name),
       }
       if (file.path.endsWith('.pug')) {
         let relPath = file.relPath
