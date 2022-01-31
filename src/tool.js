@@ -43,6 +43,7 @@ export const global_dir = () => {
 
 export const project_dir = () => {
   let current = cwd()
+  // console.log(`cwd`, cwd())
   let i = 0
   while (current) {
     if (!fs.existsSync(current)) {

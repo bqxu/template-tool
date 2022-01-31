@@ -13,7 +13,7 @@ export const template_new_command = async (templateName, options, command) => {
   let dir = path.join(cwd(), templateName)
 
   if (options.dir) {
-    dir = path.join(cwd(), options.dir)
+    dir = path.resolve(cwd(), options.dir)
   }
 
   let tpl = await find_buildIn_templates(template || 'new')

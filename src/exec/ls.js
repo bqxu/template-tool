@@ -5,8 +5,8 @@ import chalk from 'chalk'
 
 export const ls_command = async (options, command) => {
   let dir = options.dir
-  dir = path.join(cwd(), dir)
-  let local_tpls = await local_templates()
+  dir = path.resolve(cwd(), dir)
+  let local_tpls = await local_templates(dir)
   let global_tpls = await global_templates()
   let buildIn_tpls = await buildIn_templates()
 

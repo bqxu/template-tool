@@ -10,6 +10,7 @@ export const FetchNpmCommand = () => {
     .option('-t,--tag <version>', '版本号')
     .option('-n, --name <name>', '模版名称')
     .option('-f, --force', '覆盖', false)
+    .option('-d, --dir [dir]', '本地目录')
     .description('从npm仓库拉取模版')
     .showHelpAfterError()
     .action(Fetch_Npm_Command)

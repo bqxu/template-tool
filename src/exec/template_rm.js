@@ -9,7 +9,7 @@ export const Template_Rm_Command = async (templateName, options, command) => {
   const force = options.force
   let dir = options.dir
 
-  dir = path.join(cwd(), dir)
+  dir = path.resolve(cwd(), dir)
 
   let tpl = await find_local_templates(templateName, dir)
 

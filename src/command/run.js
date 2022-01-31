@@ -11,6 +11,7 @@ export const RunCommand = () => {
     .argument('<template>', '模版名称')
     .option('-d, --dir <dir>', '目录', './')
     .option('-tp, --template-path <templatePath>', '模版路径')
+    .option('-cp, --config-path <configPath>', '本地配置路径')
     .allowUnknownOption(true)
     .allowExcessArguments(true)
     .description('运行模版')

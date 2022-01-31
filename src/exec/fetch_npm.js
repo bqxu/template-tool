@@ -2,7 +2,7 @@ import path from 'path'
 import fs, { mkdirSync } from 'fs'
 import chalk from 'chalk'
 import { execa } from 'execa'
-import { global_dir, cwd, user_tmp, success, log } from '../tool.js'
+import { global_dir, cwd, user_tmp, success, log, config_dir_name } from '../tool.js'
 
 export const Fetch_Npm_Command = async (pkg, options, command) => {
   let local_template = path.join(global_dir(), 'templates')
@@ -10,7 +10,7 @@ export const Fetch_Npm_Command = async (pkg, options, command) => {
   const force = options.force
 
   if (options.dir) {
-    local_template = path.join(cwd(), options.dir, config_dir_name, 'templates')
+    local_template = path.resolve(cwd(), options.dir, config_dir_name, 'templates')
   }
 
   let name = options.name

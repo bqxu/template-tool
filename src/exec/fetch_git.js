@@ -22,7 +22,7 @@ export const Fetch_Git_Command = async (url, options, command) => {
   let local_template = path.join(global_dir(), 'templates')
 
   if (options.dir) {
-    local_template = path.join(cwd(), options.dir, config_dir_name, 'templates')
+    local_template = path.resolve(cwd(), options.dir, config_dir_name, 'templates')
   }
 
   let name = options.name

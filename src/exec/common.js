@@ -1,5 +1,5 @@
 import path from 'path'
-import { lsDirD, bin_dir, project_dir, global_dir } from '../tool.js'
+import { lsDirD, bin_dir, project_dir, global_dir, cwd, config_dir_name } from '../tool.js'
 
 /**
  *
@@ -29,13 +29,12 @@ export const find_buildIn_templates = async (templateName) => {
 export const local_templates = async (dir) => {
   let pro_dir = project_dir()
   if (dir) {
-    pro_dir = path.join(pro_dir, dir)
+    pro_dir = path.resolve(pro_dir, dir)
   }
-  // console.log(`pro_dir`, pro_dir)
   if (!pro_dir) {
     return []
   }
-  const local_template_path = path.join(pro_dir, 'templates')
+  const local_template_path = path.join(pro_dir, config_dir_name, 'templates')
   return lsDirD(local_template_path)
 }
 
@@ -72,4 +71,40 @@ export const find_global_templates = async (templateName) => {
   return in_tpls.find((tpl) => {
     return tpl.name === templateName
   })
+}
+
+/**
+ * 查找内建模版内文件
+ * @param {*} templateName
+ * @param {*} fileName
+ * @returns
+ */
+export const find_buildin_template_file = async (templateName, fileName) => {
+  return path.join(bin_dir(), 'templates', templateName, fileName)
+}
+
+/**
+ * 查找模版全局自定义文件
+ * @param {*} templateName
+ * @returns
+ */
+export const find_global_template_file = async (templateName, fileName) => {
+  return path.join(global_dir(), 'custom', templateName, fileName)
+}
+
+/**
+ * 查找模版本地自定义文件
+ * @param {*} templateName
+ * @param {*} dir
+ * @returns
+ */
+export const find_local_template_file = async (templateName, dir, fileName) => {
+  let pro_dir = project_dir()
+  if (!dir) {
+    return path.resolve(pro_dir, 'custom', templateName, fileName)
+  }
+  if (dir) {
+    pro_dir = path.resolve(cwd(), dir, '.gen-code')
+  }
+  return path.join(pro_dir, 'custom', templateName, fileName)
 }
