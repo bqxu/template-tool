@@ -2,8 +2,11 @@
   "name": "gin",
   "template": "pug",
   "commmand": {
-    "model": [
-      "model/[model]"
+    "db": [
+      "db/[model]"
+    ],
+    "form": [
+      "form/[model]"
     ],
     "router": [
       "router/[model]"

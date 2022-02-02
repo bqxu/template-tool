@@ -1,10 +1,44 @@
 | package controller
 | 
-| import "github.com/gin-gonic/gin"
+| import (
+| 	"#{pkg}/form"
+| 	"#{pkg}/service"
+| 	"github.com/gin-gonic/gin"
+| 	"log"
+| 	"net/http"
+| )
 | 
-| func #{Model}Controller(c *gin.Context) {
-| 	c.JSON(200, gin.H{
-| 		"message": "pong",
-| 	})
+| func #{Model}Create(c *gin.Context) {
+| 
+| 	var #{model} *form.#{Model}
+| 	if err := c.ShouldBindJSON(&#{model}); err != nil {
+| 		log.Println("ShouldBindJSON", err)
+| 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+| 		return
+| 	}
+| 	res := service.#{Model}Create(#{model})
+| 	c.JSON(http.StatusOK, res)
+| }
+| 
+| func #{Model}Update(c *gin.Context) {
+| 	var #{model} *form.#{Model}
+| 	if err := c.ShouldBindJSON(&#{model}); err != nil {
+| 		log.Println("ShouldBindJSON", err)
+| 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+| 		return
+| 	}
+| 	res := service.#{Model}Update(#{model})
+| 	c.JSON(http.StatusOK, res)
+| }
+| 
+| func #{Model}Delete(c *gin.Context) {
+| 	var #{model} *form.#{Model}
+| 	if err := c.ShouldBindJSON(&#{model}); err != nil {
+| 		log.Println("ShouldBindJSON", err)
+| 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+| 		return
+| 	}
+| 	res := service.#{Model}Delete(#{model})
+| 	c.JSON(http.StatusOK, res)
 | }
 | 

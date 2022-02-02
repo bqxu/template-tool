@@ -1,9 +1,12 @@
 | package router
 | 
 | import (
+|   "#{pkg}/controller"
 | 	"github.com/gin-gonic/gin"
 | )
 | 
-| func #{Router}(g *gin.Engine) {
-    
+| func #{Model}Router(g *gin.Engine) {
+|   g.POST("/#{model}/create", controller.#{Model}Create)
+|   g.POST("/#{model}/delete", controller.#{Model}Delete)
+|   g.POST("/#{model}/update", controller.#{Model}Update)
 | }

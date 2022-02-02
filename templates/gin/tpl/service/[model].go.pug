@@ -1,10 +1,33 @@
 |  package service
-|  
+| 
 | import (
-|   "ginUnityAi/res"
+| 	"#{pkg}/db"
+| 	"#{pkg}/form"
+| 	"#{pkg}/res"
 | 	"github.com/gin-gonic/gin"
 | )
 | 
-| func #{Model}GetAll() gin.H {
-|   return res.OkData("ok")
-| } 
+| func #{Model}Create(#{model} *form.#{Model}) gin.H {
+| 	mysql := db.GetMysql()
+| 
+| 	mysql.Save(#{model})
+| 
+| 	return res.OkData("ok")
+| }
+| 
+| func #{Model}Update(#{model} *form.#{Model}) gin.H {
+| 	mysql := db.GetMysql()
+| 
+| 	mysql.Updates(#{model})
+| 
+| 	return res.OkData("ok")
+| }
+| 
+| func #{Model}Delete(#{model} *form.#{Model}) gin.H {
+| 	mysql := db.GetMysql()
+| 
+| 	mysql.Updates(#{model})
+| 
+| 	return res.OkData("ok")
+| }
+| 

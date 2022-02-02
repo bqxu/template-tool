@@ -9,6 +9,7 @@ import {
   pug_compile,
   underScoreCase,
   CamelCase,
+  camelCase,
   RunCommanderError,
   success,
   chalk,
@@ -47,11 +48,10 @@ const matchPattern = async (patterns, rel_path) => {
   )
 }
 
-const page_name = (app, table, option) => {
-  if (!app) {
-    return `${table}_${option}`
-  }
-  return `${app}.${table}_${option}`
+const readModule = async (workspace) => {
+  let fileStr = fs.readFileSync(path.join(workspace, 'go.mod'), 'utf-8')
+  let line = fileStr.split('\n').filter((row) => row.startsWith('module'))?.[0] || ''
+  return line.replace('module', '').trim()
 }
 
 const out_help = async () => {
@@ -62,6 +62,7 @@ const out_help = async () => {
   log(`Options:`)
   log(`  -d, --dir <dir>    目录 (default: "./")`)
   log(`  --table <table>    表名称`)
+  log(`  --pkg <pkg>        模块名称(可选参数,默认读取 -d 下 module 名称)`)
   log(`  --model <model>    model名称(可选参数，默认为：<table>)`)
   log(`  --db <db>          数据库名称(可选参数)`)
   log(`  --sub <sub>        子类型<model/router/service/controller>`)
@@ -96,6 +97,11 @@ const Runner = async (workspace, options) => {
     pattern = config.commmand[options.sub]
   }
 
+  let pkg = options.pkg
+  if (!pkg) {
+    pkg = await readModule(workspace)
+  }
+
   if (options.force) {
     const response = await prompts({
       type: 'toggle',
@@ -125,6 +131,8 @@ const Runner = async (workspace, options) => {
       const data = {
         ...options,
         table_name,
+        pkg,
+        model: camelCase(model_name),
         Model: CamelCase(model_name),
         Router: CamelCase(model_name + '-router'),
         file_model: underScoreCase(model_name),
