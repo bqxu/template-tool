@@ -1,26 +1,41 @@
-|  package service
+| package service
 | 
 | import (
-| 	"#{pkg}/db"
-| 	"#{pkg}/form"
+| 	"log"
+| 	"unityAi/db"
+| 	"unityAi/form"
 | )
 | 
+| func #{Model}Get() db.#{Model} {
+| 
+| 	var #{model} db.#{Model}
+| 
+| 	sqlit := db.GetSqlLit3()
+| 
+| 	result := sqlit.First(&#{model}, 1)
+| 
+| 	if result.Error == nil {
+| 		return #{model}
+| 	}
+| 	return #{model}
+| }
+| 
 | func #{Model}Create(#{model} *form.#{Model}) {
-| 	mysql := db.GetSqlLit3()
-| 
-| 	mysql.Save(#{model})
-| 
+| 	sqlit := db.GetSqlLit3()
+| 	#{newModel} := &db.#{Model}{}
+| 	#{newModel}.Id = 1
+| 	#{newModel}.#{Model} = #{model}.#{Model}
+| 	log.Println(new#{Model})
+| 	sqlit.Save(new#{Model})
 | }
 | 
 | func #{Model}Update(#{model} *form.#{Model}) {
-| 	mysql := db.GetSqlLit3()
-| 
-| 	mysql.Updates(#{model})
+| 	sqlit := db.GetSqlLit3()
+| 	sqlit.Model(db.#{Model}{}).Where("id = ?", 1).Updates(db.#{Model}{})
 | }
 | 
-| func #{Model}Delete(#{model} *form.#{Model}) {
+| func #{Model}Delete() {
 | 	mysql := db.GetSqlLit3()
-| 
-| 	mysql.Updates(#{model})
+| 	mysql.Delete(&db.#{Model}{}, 1)
 | }
 | 

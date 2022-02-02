@@ -134,6 +134,7 @@ const Runner = async (workspace, options) => {
         pkg,
         model: camelCase(model_name),
         Model: CamelCase(model_name),
+        newModel: camelCase('new-' + model_name),
         Router: CamelCase(model_name + '-router'),
         file_model: underScoreCase(model_name),
       }
