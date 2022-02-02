@@ -55,7 +55,7 @@ const readModule = async (workspace) => {
 }
 
 const out_help = async () => {
-  log(`Usage: run gin -d <dir> --model <model>`)
+  log(`Usage: run fyne -d <dir> --model <model>`)
   log(``)
   log(`生成 gin 内页面模版`)
   log(``)

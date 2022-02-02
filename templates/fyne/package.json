@@ -1,28 +1,25 @@
 {
-  "name": "gin",
+  "name": "fyne",
+  "version": "1.0.0",
   "template": "pug",
   "commmand": {
+    "api": [
+      "api/[model]"
+    ],
     "db": [
       "db/[model]"
     ],
     "form": [
       "form/[model]"
     ],
-    "router": [
-      "router/[model]"
-    ],
     "service": [
       "service/[model]"
     ],
-    "controller": [
-      "controller/[model]"
-    ],
     "default": [
+      "api/[model]",
       "db/[model]",
       "form/[model]",
-      "router/[model]",
-      "service/[model]",
-      "controller/[model]"
+      "service/[model]"
     ]
   },
   "private": true,
@@ -31,5 +28,6 @@
     "tpl",
     "package.json",
     "runner.js"
-  ]
+  ],
+  "dependencies": {}
 }

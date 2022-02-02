@@ -1,0 +1,26 @@
+|  package service
+| 
+| import (
+| 	"#{pkg}/db"
+| 	"#{pkg}/form"
+| )
+| 
+| func #{Model}Create(#{model} *form.#{Model}) {
+| 	mysql := db.GetSqlLit3()
+| 
+| 	mysql.Save(#{model})
+| 
+| }
+| 
+| func #{Model}Update(#{model} *form.#{Model}) {
+| 	mysql := db.GetSqlLit3()
+| 
+| 	mysql.Updates(#{model})
+| }
+| 
+| func #{Model}Delete(#{model} *form.#{Model}) {
+| 	mysql := db.GetSqlLit3()
+| 
+| 	mysql.Updates(#{model})
+| }
+| 

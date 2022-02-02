@@ -55,7 +55,7 @@ const page_name = (app, table, option) => {
 }
 
 const out_help = async () => {
-  log(`Usage: new api -d <dir> --model <model>`)
+  log(`Usage: run api -d <dir> --model <model>`)
   log(``)
   log(`生成 api-server 内页面模版`)
   log(``)
