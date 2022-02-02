@@ -16,6 +16,16 @@
     ],
     "controller": [
       "controller/[model]"
+    ],
+    "default": [
+      "db/[model]",
+      "form/[model]",
+      "router/[model]",
+      "service/[model]",
+      "controller/[model]"
+    ],
+    "api": [
+      "api/[model]"
     ]
   },
   "private": true,

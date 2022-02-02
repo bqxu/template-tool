@@ -19,7 +19,7 @@ import {
 
 const require = createRequire(import.meta.url)
 
-const config = require('./package.json')
+const pkg = require('./package.json')
 
 const __file_name = () => {
   return url.fileURLToPath(import.meta.url)
@@ -88,13 +88,13 @@ const Runner = async (workspace, options) => {
 
   let model_name = options.model || options.table
 
-  let pattern = ['*']
+  let pattern = pkg.commmand['default'] || ['*']
 
   if (options.sub) {
-    if (!config.commmand[options.sub]) {
+    if (!pkg.commmand[options.sub]) {
       throw new RunCommanderError(`未匹配到有效的 --sub ${options.sub}`)
     }
-    pattern = config.commmand[options.sub]
+    pattern = pkg.commmand[options.sub]
   }
 
   if (options.force) {
@@ -112,7 +112,7 @@ const Runner = async (workspace, options) => {
     }
   }
 
-  if (config.template == 'pug') {
+  if (pkg.template == 'pug') {
     mkdirSync(workspace, { recursive: true })
 
     let files = lsDirFR(path.join(__dir_name(), 'tpl/'))

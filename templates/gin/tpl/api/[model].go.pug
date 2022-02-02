@@ -1,0 +1,23 @@
+| package api
+| 
+| import (
+| 	"#{pkg}/config"
+| 	"#{pkg}/form"
+| )
+| 
+| func #{Model}List() *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/list", nil)
+| }
+| 
+| func #{Model}Create(form *form.#{Model}) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/create", form)
+| }
+| 
+| func #{Model}Update(form *form.#{Model}) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/update", form)
+| }
+| 
+| func #{Model}Delete(id string) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/delete", &form.Delete{Id: id, DeleteFlag: 1})
+| }
+|

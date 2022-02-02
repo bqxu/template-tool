@@ -88,7 +88,7 @@ const Runner = async (workspace, options) => {
 
   let model_name = options.model || options.table
 
-  let pattern = ['*']
+  let pattern = config.commmand['default'] || ['*']
 
   if (options.sub) {
     if (!config.commmand[options.sub]) {
