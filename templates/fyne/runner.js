@@ -135,8 +135,14 @@ const Runner = async (workspace, options) => {
         model: camelCase(model_name),
         Model: CamelCase(model_name),
         newModel: camelCase('new-' + model_name),
+        ModelNew: CamelCase(model_name + '-new'),
+        modelNew: underScoreCase(camelCase(model_name + '-new')),
+        ModelList: CamelCase(model_name + '-list'),
+        modelList: underScoreCase(camelCase(model_name + '-list')),
         Router: CamelCase(model_name + '-router'),
         file_model: underScoreCase(model_name),
+        file_model_list_ui: underScoreCase(camelCase(model_name + '-list-ui')),
+        file_model_new_ui: underScoreCase(camelCase(model_name + '-new-ui')),
       }
       if (file.path.endsWith('.pug')) {
         let relPath = file.relPath

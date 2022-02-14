@@ -15,6 +15,12 @@
     "service": [
       "service/[model]"
     ],
+    "ui.list": [
+      "app/[model_list_ui]"
+    ],
+    "ui.new": [
+      "app/[model_new_ui]"
+    ],
     "default": [
       "api/[model]",
       "db/[model]",
