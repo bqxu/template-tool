@@ -1,0 +1,44 @@
+| package app
+| 
+| import (
+| 	"fyne.io/fyne/v2"
+| 	"os"
+| 	"path"
+| 	"#{pkg}/tool"
+| 	"#{pkg}/ui"
+| )
+| 
+| type #{ModelNew}Ui struct {
+| 	App *UnitApp
+| 	win fyne.Window
+| 
+| 	meta    *ui.LayoutMeta
+| 	content *fyne.Container
+| }
+| 
+| func (u *#{ModelNew}Ui) init() {
+| 	u.meta = ui.NewLayoutMeta()
+| 	cwd, _ := os.Getwd()
+| 	doc := tool.ParseHtml(path.Join(cwd, "./xml/#{modelNew}.xml"))
+| 	u.meta = ui.NewLayoutMeta()
+| 	u.content = ui.Layout(doc, u.meta).(*fyne.Container)
+| }
+| 
+| func (u *#{ModelNew}Ui) Open() fyne.Window {
+| 
+| 	win := u.App.FApp.NewWindow("新增")
+| 	u.win = win
+| 
+| 	u.init()
+| 
+| 	u.win.SetContent(u.content)
+| 
+| 	u.win.Show()
+| 
+| 	return win
+| }
+| 
+| func (u *#{ModelNew}Ui) Submit() {
+| 
+| }
+| 
