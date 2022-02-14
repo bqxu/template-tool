@@ -1,0 +1,18 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "template": "pug",
+  "commmand": {
+    "default": [
+      "tsconfig.json",
+      "rollup.config.js"
+    ]
+  },
+  "private": true,
+  "type": "module",
+  "files": [
+    "tpl",
+    "package.json",
+    "runner.js"
+  ]
+}
