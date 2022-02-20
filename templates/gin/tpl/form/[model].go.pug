@@ -3,9 +3,21 @@
 | import "time"
 | 
 | type #{Model} struct {
-|	ID         uint      `form:"id" json:"id" `
+|	ID         int      `form:"id" json:"id" `
 |	CreateTime time.Time `form:"create_time" json:"create_time" xml:"create_time"`
 |	UpdateTime time.Time `form:"update_time" json:"update_time" xml:"update_time"`
-|	DeleteFlag uint      `form:"delete_flag" json:"delete_flag" xml:"delete_flag"`
+|	DeleteFlag int      `form:"delete_flag" json:"delete_flag" xml:"delete_flag"`
+| }
+| 
+| type List#{Model} struct {
+| 	UserId string `json:"user_id" `
+| }
+| 
+| type Delete#{Model} struct {
+| 	// in:body
+| 	// required: true
+| 	#{Model}Id   string `json:"#{model}_id" `
+| 	UserId     string `json:"user_id" `
+| 	DeleteFlag int    `json:"delete_flag" `
 | }
 | 

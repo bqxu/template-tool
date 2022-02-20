@@ -3,10 +3,10 @@
 | import "time"
 | 
 | type #{Model} struct {
-| 	ID             uint
+| 	ID             int
 | 	CreateTime     time.Time
 | 	UpdateTime     time.Time
-| 	DeleteFlag     uint
+| 	DeleteFlag     int
 | }
 | 
 | func (#{Model}) TableName() string {

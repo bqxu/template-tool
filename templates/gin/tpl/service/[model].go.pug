@@ -6,28 +6,72 @@
 | 	"#{pkg}/res"
 | 	"github.com/gin-gonic/gin"
 | )
+|
+| func #{Model}List(#{model} *form.List#{Model}) res.Result {
+| 	mysql := db.GetMysql()
+|   var #{model}s []db.#{Model}
+|   result := mysql.Where("user_id = ? and delete_flag = 0 ", #{model}.UserId).Find(&#{model}s)
+|   if result.Error != nil {
+|		return res.WarnMessage(result.Error.Error())
+|	}
+|	return res.OkData(#{model}s)
+| }
+|  
+| func #{Model}Create(#{model} *form.#{Model}) res.Result {
+| 	mysql := db.GetMysql()
+|   db#{Model} := &db.#{Model}{}
+|
+| 	result := mysql.Save(db#{Model})
 | 
-| func #{Model}Create(#{model} *form.#{Model}) gin.H {
+|	if result.Error != nil {
+|		log.Println(result.Error.Error())
+|		return res.WarnMessage(result.Error.Error())
+|	}
+|
+| 	return res.OkData("ok")
+| }
+| 
+| func #{Model}Update(#{model} *form.#{Model}) res.Result {
 | 	mysql := db.GetMysql()
 | 
-| 	mysql.Save(#{model})
+|	if #{model}.#{Model}Id == "" {
+|		return res.WarnMessage("id 不能为空")
+|	}
+|
+|	var db#{Model} = &db.#{Model}{
+|		#{Model}Id:      #{model}.#{Model}Id,
+|		UserId:     #{model}.UserId,
+|	}
+|
+| 	result := mysql.Model(&db#{Model}).Select("delete_flag").Where(`user_id = ? and #{model}_id =?`, #{model}.UserId, #{model}.#{Model}Id).UpdateColumns(db#{Model})
+| 
+|   if result.Error != nil {
+|	    return res.WarnMessage(result.Error.Error())
+|	}
 | 
 | 	return res.OkData("ok")
 | }
 | 
-| func #{Model}Update(#{model} *form.#{Model}) gin.H {
+| func #{Model}Delete(#{model} *form.Delete#{Model}) res.Result {
 | 	mysql := db.GetMysql()
 | 
-| 	mysql.Updates(#{model})
+|
+|	if #{model}.#{Model}Id == "" {
+|		return res.WarnMessage("id 不能为空")
+|	}
+|
+|	var db#{Model} = &db.#{Model}{
+|		#{Model}Id:      #{model}.#{Model}Id,
+|		UserId:     #{model}.UserId,
+|		DeleteFlag: 1,
+|	}
+|
+| 	result := mysql.Model(&db#{Model}).Select("delete_flag").Where(`user_id = ? and #{model}_id =?`, #{model}.UserId, #{model}.#{Model}Id).UpdateColumns(db#{Model})
 | 
-| 	return res.OkData("ok")
-| }
-| 
-| func #{Model}Delete(#{model} *form.#{Model}) gin.H {
-| 	mysql := db.GetMysql()
-| 
-| 	mysql.Updates(#{model})
-| 
+|   if result.Error != nil {
+|	    return res.WarnMessage(result.Error.Error())
+|	}
+|
 | 	return res.OkData("ok")
 | }
 | 

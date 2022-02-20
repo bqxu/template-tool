@@ -8,6 +8,40 @@
 | 	"net/http"
 | )
 | 
+| // #{Model}List godoc
+| // @Security 	 ApiKeyAuth
+| // @Summary      List #{Model}
+| // @Description  #{Model} list
+| // @Tags         #{model}
+| // @Accept       json
+| // @Param  Body  body  form.List#{Model} true "form.List#{Model}"
+| // @Produce      json
+| // @Success      200  {object} res.Result{data=[]db.#{Model}}
+| // @Router       /#{model}/list [post]
+| func #{Model}List(c *gin.Context) {
+| 
+| 	var #{model} *form.List#{Model}
+| 	if err := c.ShouldBindJSON(&#{model}); err != nil {
+| 		log.Println("ShouldBindJSON", err)
+| 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+| 		return
+| 	}
+| 	auth, _ := c.Get("auth")
+|	#{model}.UserId = auth.(form.Auth).UserId
+| 	res := service.#{Model}List(#{model})
+| 	c.JSON(http.StatusOK, res)
+| }
+| 
+| // #{Model}Create godoc
+| // @Security 	 ApiKeyAuth
+| // @Summary      Create #{Model}
+| // @Description  #{Model} Create
+| // @Tags         #{model}
+| // @Accept       json
+| // @Param  Body  body  form.#{Model} true "form.#{Model}"
+| // @Produce      json
+| // @Success      200  {object} res.Result{data=[]db.#{Model}}
+| // @Router       /#{model}/create [post]
 | func #{Model}Create(c *gin.Context) {
 | 
 | 	var #{model} *form.#{Model}
@@ -16,10 +50,22 @@
 | 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 | 		return
 | 	}
+| 	auth, _ := c.Get("auth")
+|	#{model}.UserId = auth.(form.Auth).UserId
 | 	res := service.#{Model}Create(#{model})
 | 	c.JSON(http.StatusOK, res)
 | }
 | 
+| // #{Model}Update godoc
+| // @Security 	 ApiKeyAuth
+| // @Summary      Update #{Model}
+| // @Description  #{Model} Update
+| // @Tags         #{model}
+| // @Accept       json
+| // @Param  Body  body  form.#{Model} true "form.#{Model}"
+| // @Produce      json
+| // @Success      200  {object} res.Result{data=string}
+| // @Router       /#{model}/update [post]
 | func #{Model}Update(c *gin.Context) {
 | 	var #{model} *form.#{Model}
 | 	if err := c.ShouldBindJSON(&#{model}); err != nil {
@@ -27,17 +73,31 @@
 | 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 | 		return
 | 	}
+| 	auth, _ := c.Get("auth")
+|	#{model}.UserId = auth.(form.Auth).UserId
 | 	res := service.#{Model}Update(#{model})
 | 	c.JSON(http.StatusOK, res)
 | }
 | 
+| // #{Model}Delete godoc
+| // @Security 	 ApiKeyAuth
+| // @Summary      Delete #{Model}
+| // @Description  #{Model} Delete
+| // @Tags         #{model}
+| // @Accept       json
+| // @Param  Body  body  form.Delete#{Model} true "form.Delete#{Model}"
+| // @Produce      json
+| // @Success      200  {object} res.Result{data=string}
+| // @Router       /#{model}/delete [post]
 | func #{Model}Delete(c *gin.Context) {
-| 	var #{model} *form.#{Model}
+| 	var #{model} *form.Delete#{Model}
 | 	if err := c.ShouldBindJSON(&#{model}); err != nil {
 | 		log.Println("ShouldBindJSON", err)
 | 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 | 		return
 | 	}
+| 	auth, _ := c.Get("auth")
+|	#{model}.UserId = auth.(form.Auth).UserId
 | 	res := service.#{Model}Delete(#{model})
 | 	c.JSON(http.StatusOK, res)
 | }

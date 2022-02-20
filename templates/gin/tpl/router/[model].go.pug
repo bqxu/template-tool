@@ -2,11 +2,19 @@
 | 
 | import (
 |   "#{pkg}/controller"
+|   "ginUnityAi/middleware"
 | 	"github.com/gin-gonic/gin"
 | )
 | 
 | func #{Model}Router(g *gin.Engine) {
-|   g.POST("/#{model}/create", controller.#{Model}Create)
-|   g.POST("/#{model}/delete", controller.#{Model}Delete)
-|   g.POST("/#{model}/update", controller.#{Model}Update)
+|   #{model} := g.Group("/api/v1/#{model}")
+|	#{model}.Use(middleware.JwtAuth(&middleware.JwtAuthOpt{Must: true}))
+|
+|	{
+|		#{model}.POST("/list", controller.#{Model}List)
+|		#{model}.POST("/create", controller.#{Model}Create)
+|		#{model}.POST("/delete", controller.#{Model}Delete)
+|		#{model}.POST("/update", controller.#{Model}Update)
+|	}
+|
 | }
