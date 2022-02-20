@@ -9,3 +9,13 @@
 |	DeleteFlag uint      `form:"delete_flag" json:"delete_flag" xml:"delete_flag"`
 | }
 | 
+| type List#{Model} struct {
+| 	UserId string `json:"user_id" `
+| }
+| 
+| type Delete#{Model} struct {
+| 	#{Model}Id   string `json:"#{model}_id" `
+| 	UserId     string `json:"user_id" `
+| 	DeleteFlag int    `json:"delete_flag" `
+| }
+| 

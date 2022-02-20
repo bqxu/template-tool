@@ -1,41 +1,39 @@
 | package service
 | 
 | import (
-| 	"log"
-| 	"unityAi/db"
+| 	"unityAi/api"
 | 	"unityAi/form"
 | )
 | 
-| func #{Model}Get() db.#{Model} {
-| 
-| 	var #{model} db.#{Model}
-| 
-| 	sqlit := db.GetSqlLit3()
-| 
-| 	result := sqlit.First(&#{model}, 1)
-| 
-| 	if result.Error == nil {
-| 		return #{model}
+| func #{Model}List(#{model} *form.List#{Model}) []interface{} {
+| 	res := api.#{Model}List(#{model})
+| 	if res.State == "ok" {
+| 		return res.Data.([]interface{})
 | 	}
-| 	return #{model}
+| 	return nil
 | }
 | 
-| func #{Model}Create(#{model} *form.#{Model}) {
-| 	sqlit := db.GetSqlLit3()
-| 	#{newModel} := &db.#{Model}{}
-| 	#{newModel}.Id = 1
-| 	#{newModel}.#{Model} = #{model}.#{Model}
-| 	log.Println(new#{Model})
-| 	sqlit.Save(new#{Model})
+| func #{Model}Create(#{model} *form.#{Model}) interface{} {
+| 	res := api.#{Model}Create(#{model})
+| 	if res.State == "ok" {
+| 		return res.Data.(interface{})
+| 	}
+| 	return nil
 | }
 | 
-| func #{Model}Update(#{model} *form.#{Model}) {
-| 	sqlit := db.GetSqlLit3()
-| 	sqlit.Model(db.#{Model}{}).Where("id = ?", 1).Updates(db.#{Model}{})
+| func #{Model}Update(#{model} *form.#{Model}) bool {
+| 	res := api.#{Model}Update(#{model})
+| 	if res.State == "ok" {
+| 		return true
+| 	}
+| 	return false
 | }
 | 
-| func #{Model}Delete() {
-| 	mysql := db.GetSqlLit3()
-| 	mysql.Delete(&db.#{Model}{}, 1)
+| func #{Model}Delete(#{model} *form.Delete#{Model}) bool {
+| 	res := api.#{Model}Delete(#{model})
+| 	if res.State == "ok" {
+| 		return true
+| 	}
+| 	return false
 | }
 | 

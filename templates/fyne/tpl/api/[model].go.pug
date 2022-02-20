@@ -5,19 +5,19 @@
 | 	"#{pkg}/form"
 | )
 | 
-| func #{Model}List() *Res {
-| 	return PostJson(config.ApiServer+"/#{model}/list", nil)
+| func #{Model}List(#{model} *form.List#{Model}) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/list", #{model})
 | }
 | 
-| func #{Model}Create(form *form.#{Model}) *Res {
-| 	return PostJson(config.ApiServer+"/#{model}/create", form)
+| func #{Model}Create(#{model} *form.#{Model}) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/create", #{model})
 | }
 | 
-| func #{Model}Update(form *form.#{Model}) *Res {
-| 	return PostJson(config.ApiServer+"/#{model}/update", form)
+| func #{Model}Update(#{model} *form.#{Model}) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/update", #{model})
 | }
 | 
-| func #{Model}Delete(id string) *Res {
-| 	return PostJson(config.ApiServer+"/#{model}/delete", &form.Delete{Id: id, DeleteFlag: 1})
+| func #{Model}Delete(#{model} *form.Delete#{Model}) *Res {
+| 	return PostJson(config.ApiServer+"/#{model}/delete", #{model})
 | }
 |
